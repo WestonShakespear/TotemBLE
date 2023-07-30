@@ -1,14 +1,17 @@
+#ifndef DEF_H
+#define DEF_H
+
 // default settings
-#define SA 0
-#define SB 0
-#define SC 0
-#define SD 0
-#define SE 0
-#define SF 0
-#define SG 0
-#define SH 0
-#define SI 0
-#define SJ 0
+#define STA 0
+#define STB 0
+#define STC 0
+#define STD 0
+#define STE 0
+#define STF 0
+#define STG 0
+#define STH 0
+#define STI 0
+#define STJ 0
 
 
 // settings
@@ -42,3 +45,5 @@
 
 // how many previous entries there are
 #define CHAR_LEN 10
+
+#endif

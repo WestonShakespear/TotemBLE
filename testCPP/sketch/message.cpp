@@ -6,7 +6,7 @@
 
 
 int lastMessage[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-int settings[] = {SA, SB, SC, SD, SE, SF, SG, SH, SI, SJ};
+int settings[] = {STA, STB, STC, STD, STE, STF, STG, STH, STI, STJ};
 
 
 void flushMessages()
