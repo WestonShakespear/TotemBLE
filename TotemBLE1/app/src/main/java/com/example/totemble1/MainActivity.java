@@ -25,6 +25,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,9 +53,12 @@ import android.widget.TextView;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
     Button startScanningButton;
     Button stopScanningButton;
     TextView peripheralTextView;
+
+
+    Button BrightnessDownButton;
+    Button BrightnessUpButton;
+    Button FlashlightButton;
+    Button ModeButton;
+    Button RemoteButton;
     private final static int REQUEST_ENABLE_BT = 1;
     private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
 
@@ -92,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Stops scanning after 5 seconds.
     private Handler mHandler = new Handler();
-    private static final long SCAN_PERIOD = 2000;
+    private static final long SCAN_PERIOD = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +158,48 @@ public class MainActivity extends AppCompatActivity {
         stopScanningButton.setVisibility(View.INVISIBLE);
 
 
+        BrightnessUpButton = (Button) findViewById(R.id.BrightnessUpButton);
+        BrightnessUpButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                brightnessUp();
+            }
+        });
+        BrightnessUpButton.setVisibility(View.INVISIBLE);
+
+        BrightnessDownButton = (Button) findViewById(R.id.BrightnessDownButton);
+        BrightnessDownButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                brightnessDown();
+            }
+        });
+        BrightnessDownButton.setVisibility(View.INVISIBLE);
+
+
+        FlashlightButton = (Button) findViewById(R.id.FlashlightButton);
+        FlashlightButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                flashlightChange();
+            }
+        });
+        FlashlightButton.setVisibility(View.INVISIBLE);
+
+        ModeButton = (Button) findViewById(R.id.ModeButton);
+        ModeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                modeChange();
+            }
+        });
+        ModeButton.setVisibility(View.INVISIBLE);
+
+        RemoteButton = (Button) findViewById(R.id.RemoteButton);
+        RemoteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                remoteChange();
+            }
+        });
+        RemoteButton.setVisibility(View.INVISIBLE);
+
+
         // Check bluetooth permissions
         String[] permissions = {
                 permission.BLUETOOTH_SCAN,
@@ -171,6 +225,93 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
         }
 
+    }
+
+
+    public void brightnessUp() {
+        if (ActivityCompat.checkSelfPermission(this, permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        brightDir = true;
+        bluetoothGatt.readCharacteristic(read.get(BRIGHTNESS_KEY));
+    }
+
+    public void brightnessDown()
+    {
+        if (ActivityCompat.checkSelfPermission(this, permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        brightDir = false;
+        bluetoothGatt.readCharacteristic(read.get(BRIGHTNESS_KEY));
+    }
+
+    public void flashlightChange()
+    {
+        if (ActivityCompat.checkSelfPermission(this, permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        bluetoothGatt.readCharacteristic(read.get(FLASHLIGHT_KEY));
+    }
+
+    public void modeChange() {
+        if (ActivityCompat.checkSelfPermission(this, permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        changeMode = true;
+        bluetoothGatt.readCharacteristic(read.get(MODE_KEY));
+        try {
+            Thread.sleep(2000);
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        changeMode = false;
+        bluetoothGatt.readCharacteristic(read.get(MODE_KEY));
+    }
+
+    public void remoteChange()
+    {
+        if (ActivityCompat.checkSelfPermission(this, permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        bluetoothGatt.readCharacteristic(read.get(REMOTE_KEY));
     }
 
     ArrayList<String> beacons = new ArrayList<>();
@@ -200,6 +341,13 @@ public class MainActivity extends AppCompatActivity {
                             peripheralTextView.append("device disconnected\n");
                             connectToDevice.setVisibility(View.VISIBLE);
                             disconnectDevice.setVisibility(View.INVISIBLE);
+
+                            BrightnessUpButton.setVisibility(View.INVISIBLE);
+                            BrightnessDownButton.setVisibility(View.INVISIBLE);
+
+                            FlashlightButton.setVisibility(View.INVISIBLE);
+                            ModeButton.setVisibility(View.INVISIBLE);
+                            RemoteButton.setVisibility(View.INVISIBLE);
                         }
                     });
                     break;
@@ -209,6 +357,13 @@ public class MainActivity extends AppCompatActivity {
                             peripheralTextView.append("device connected\n");
                             connectToDevice.setVisibility(View.INVISIBLE);
                             disconnectDevice.setVisibility(View.VISIBLE);
+
+                            BrightnessUpButton.setVisibility(View.VISIBLE);
+                            BrightnessDownButton.setVisibility(View.VISIBLE);
+
+                            FlashlightButton.setVisibility(View.VISIBLE);
+                            ModeButton.setVisibility(View.VISIBLE);
+                            RemoteButton.setVisibility(View.VISIBLE);
                         }
                     });
 
@@ -255,14 +410,82 @@ public class MainActivity extends AppCompatActivity {
                 if (ActivityCompat.checkSelfPermission(getContext(), permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                String retVal = d + d;
+
+
+
+
+                String retVal = d;
+
+
+
+                if (characteristic.getUuid().toString().contains(BRIGHTNESS_KEY))
+                {
+                    int r = Integer.parseInt(retVal);
+                    if (brightDir)
+                    {
+                        r += 1;
+
+                        if (r == 255)
+                        {
+                            r = 255;
+                        }
+                    }
+                    else
+                    {
+                        r -= 1;
+
+                        if (r == 5)
+                        {
+                            r = 1;
+                        }
+                    }
+                    retVal = Integer.toString(r);
+
+                }
+
+                if (characteristic.getUuid().toString().contains(FLASHLIGHT_KEY))
+                {
+                   if (retVal.contains("false"))
+                   {
+                       retVal = "true";
+                   }
+                   else {
+                       retVal = "false";
+                   }
+                }
+
+                if (characteristic.getUuid().toString().contains(MODE_KEY))
+                {
+                    if (changeMode)
+                    {
+                        retVal = "next";
+                    }
+                    else
+                    {
+                        ModeButton.setText(retVal);
+                    }
+
+                }
+
+                if (characteristic.getUuid().toString().contains(REMOTE_KEY))
+                {
+                    retVal = "next";
+                }
+
                 byte[] val = retVal.getBytes(StandardCharsets.UTF_8);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     gatt.writeCharacteristic(characteristic, val, BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
                 }
+
+
+
+
             }
         }
     };
+
+    boolean brightDir = true;
+    boolean changeMode = false;
 
 
     private void broadcastUpdate(final String action,
@@ -305,10 +528,30 @@ public class MainActivity extends AppCompatActivity {
                 fmt = String.format("Char Discovered: %s%n", gattCharacteristic.getUuid().toString());
                 Log.d("CONNECTION", fmt);
 
-                if (gattCharacteristic.getUuid().toString().contains("beb5483e-36e1-4688-b7f5-ea07361b26a8") )
+
+
+                if (gattCharacteristic.getUuid().toString().contains(BRIGHTNESS_KEY))
                 {
-                    Log.d("CHARACTER", "getting");
-                    bluetoothGatt.readCharacteristic(gattCharacteristic);
+    //                    bluetoothGatt.readCharacteristic(gattCharacteristic);
+                    read.put(BRIGHTNESS_KEY, gattCharacteristic);
+                }
+
+                if (gattCharacteristic.getUuid().toString().contains(FLASHLIGHT_KEY))
+                {
+                    //                    bluetoothGatt.readCharacteristic(gattCharacteristic);
+                    read.put(FLASHLIGHT_KEY, gattCharacteristic);
+                }
+
+                if (gattCharacteristic.getUuid().toString().contains(MODE_KEY))
+                {
+                    //                    bluetoothGatt.readCharacteristic(gattCharacteristic);
+                    read.put(MODE_KEY, gattCharacteristic);
+                }
+
+                if (gattCharacteristic.getUuid().toString().contains(REMOTE_KEY))
+                {
+                    //                    bluetoothGatt.readCharacteristic(gattCharacteristic);
+                    read.put(REMOTE_KEY, gattCharacteristic);
                 }
 
 
@@ -330,7 +573,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    final String BRIGHTNESS_KEY = "00947533-3143-470c-9c12-0816383efdd8";
+    final String FLASHLIGHT_KEY = "017a77ec-5a68-45c8-972e-8442cac37928";
+    final String MODE_KEY = "024ea33f-43da-4e62-9333-baf75af57c12";
+    final String REMOTE_KEY = "03097d35-7f88-4bbb-9573-3b5f60f104b6";
 
+    HashMap<String, BluetoothGattCharacteristic> read = new HashMap<String, BluetoothGattCharacteristic>();
+
+
+    int totemIndex = -1;
 
 
 
@@ -353,7 +604,22 @@ public class MainActivity extends AppCompatActivity {
                 beacons.add(name);
                 devicesDiscovered.add(result.getDevice());
                 peripheralTextView.append(output);
+
+                try {
+                    if (name.contains("festifaerie.com"))
+                    {
+                        totemIndex = deviceIndex;
+                    }
+                }
+                catch (NullPointerException e)
+                {
+
+                }
+
+
                 deviceIndex++;
+
+
             }
             else
             {
@@ -390,6 +656,7 @@ public class MainActivity extends AppCompatActivity {
                     permissionError("startScanning: runnable", permission.BLUETOOTH_SCAN);
                     return;
                 }
+                Log.d("DEBUG", "STarted scanning");
                 btScanner.startScan(leScanCallback);
             }
         });
@@ -421,6 +688,14 @@ public class MainActivity extends AppCompatActivity {
                 btScanner.stopScan(leScanCallback);
             }
         });
+
+        peripheralTextView.append("The totem index is: " + totemIndex);
+        deviceIndexInput.setText(Integer.toString(totemIndex));
+
+        if (totemIndex != -1)
+        {
+            connectToDeviceSelected();
+        }
     }
 
     //--------------------------------------CONNECTION METHODS------------------------------------//

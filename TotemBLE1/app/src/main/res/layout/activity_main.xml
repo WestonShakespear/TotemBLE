@@ -7,27 +7,35 @@
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/StartScanButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Start Scan" />
+
+            <Button
+                android:id="@+id/StopScanButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Stop Scan" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/PeripheralTextView"
             android:layout_width="match_parent"
-            android:layout_height="487dp"
+            android:layout_height="157dp"
             android:text="TextView" />
 
         <EditText
@@ -36,31 +44,74 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-            android:text="Name" />
+            android:text="Input Index" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/ConnectButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Connect" />
+
+            <Button
+                android:id="@+id/DisconnectButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Disconnect" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="95dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Brightness" />
+
+            <Button
+                android:id="@+id/BrightnessDownButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="-" />
+
+            <Button
+                android:id="@+id/BrightnessUpButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="+" />
+
+        </LinearLayout>
 
         <Button
-            android:id="@+id/ConnectButton"
+            android:id="@+id/FlashlightButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Connect" />
+            android:text="Flashlight" />
 
         <Button
-            android:id="@+id/DisconnectButton"
+            android:id="@+id/ModeButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Disconnect" />
+            android:text="Default" />
 
         <Button
-            android:id="@+id/StartScanButton"
+            android:id="@+id/RemoteButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start Scan" />
+            android:text="Next Animation" />
 
-        <Button
-            android:id="@+id/StopScanButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Stop Scan" />
     </LinearLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
