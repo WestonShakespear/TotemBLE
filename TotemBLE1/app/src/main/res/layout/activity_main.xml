@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#002b36"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
@@ -14,14 +15,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="87dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/StartScanButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="282dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:backgroundTint="#268bd2"
                 android:text="Start Scan" />
 
             <Button
@@ -29,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="#268bd2"
                 android:text="Stop Scan" />
         </LinearLayout>
 
@@ -36,7 +39,8 @@
             android:id="@+id/PeripheralTextView"
             android:layout_width="match_parent"
             android:layout_height="157dp"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#93a1a1" />
 
         <EditText
             android:id="@+id/InputIndex"
@@ -44,18 +48,20 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="text"
-            android:text="Input Index" />
+            android:text="Input Index"
+            android:textColor="#93a1a1" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="105dp"
+            android:layout_height="124dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/ConnectButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="282dp"
+                android:layout_height="80dp"
                 android:layout_weight="1"
+                android:backgroundTint="#268bd2"
                 android:text="Connect" />
 
             <Button
@@ -63,6 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="#268bd2"
                 android:text="Disconnect" />
 
         </LinearLayout>
@@ -77,20 +84,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Brightness" />
+                android:text="Brightness"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textColor="#93a1a1" />
 
             <Button
                 android:id="@+id/BrightnessDownButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="73dp"
                 android:layout_weight="1"
+                android:backgroundTint="#b58900"
                 android:text="-" />
 
             <Button
                 android:id="@+id/BrightnessUpButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="74dp"
                 android:layout_weight="1"
+                android:backgroundTint="#dc322f"
                 android:text="+" />
 
         </LinearLayout>
@@ -98,20 +109,25 @@
         <Button
             android:id="@+id/FlashlightButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="81dp"
+            android:backgroundTint="#d33682"
             android:text="Flashlight" />
 
         <Button
             android:id="@+id/ModeButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="78dp"
+            android:backgroundTint="#6c71c4"
             android:text="Default" />
 
         <Button
             android:id="@+id/RemoteButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Next Animation" />
+            android:layout_height="82dp"
+            android:backgroundTint="#2aa198"
+            android:backgroundTintMode="src_over"
+            android:text="Next Animation"
+            app:iconTintMode="add" />
 
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
